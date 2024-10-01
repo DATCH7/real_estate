@@ -1,0 +1,39 @@
+.louer-page {
+    font-family: 'Outfit', sans-serif;
+}
+
+.louer-section {
+    padding: 50px 20px;
+    color: #333;
+}
+
+.louer-content {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.louer-content h1 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.louer-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.louer-content li {
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.louer-content li h2 {
+    margin: 0;
+    font-size: 18px;
+}

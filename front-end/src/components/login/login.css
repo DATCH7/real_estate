@@ -1,0 +1,78 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../../assets/background.jpg'); /* Background image */
+    background-size: cover;
+    background-position: center;
+}
+
+.login-form {
+    background-color: rgba(255, 255, 255, 0.9); /* Slight transparency for better visibility */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Maximum width for the form */
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 95%; /* Full width for input fields */
+    padding: 10px; /* Increased padding for better touch targets */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.log-button {
+    background-color: #007bff; /* Primary button color */
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%; /* Full width for the button */
+}
+
+.log-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 15px; /* Space below error message */
+}
+
+/* Sign-up link button style */
+.redirect-button {
+    background-color: transparent; /* Transparent background */
+    color: #007bff; /* Primary link color */
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+    width: 100%; /* Full width for redirect button */
+}
+
+.redirect-button:hover {
+    text-decoration: underline; /* Underline effect on hover */
+}

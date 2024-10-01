@@ -1,0 +1,44 @@
+.home-page {
+    font-family: 'Outfit', sans-serif; /* Ensure your font is applied */
+  }
+
+  .home-section {
+    background-image: url('./assets/background.jpg'); /* Path to your image */
+    background-size: cover;
+    background-position: center;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 250px 20px; /* Adjust as needed */
+  }
+  
+  .home-content h1 {
+    font-size: 36px;
+  }
+  
+  .home-content p {
+    font-size: 18px;
+  }
+  
+  .home-content input {
+    padding: 10px;
+    margin-top: 10px;
+    width: 60%;
+    max-width: 400px;
+  }
+  
+  .home-content button {
+    padding: 10px 20px;
+    background-color: #d77710;
+    color: rgb(11, 9, 9);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .home-content button:hover {
+    background-color: #e5c574;
+  }
+
+  #search-home{
+    width:max-content;
+  }

@@ -1,0 +1,76 @@
+.vendre-page {
+    font-family: 'Outfit', sans-serif;
+}
+
+.vendre-section {
+    background-image: url('./assets/background.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    min-height: 100vh;
+}
+
+.vendre-content {
+    background: rgba(0, 0, 0, 0.8); 
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
+}
+
+.vendre-content h1 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+    color: #f1f1f1;
+}
+
+.vendre-input-group {
+    margin-bottom: 20px; 
+}
+
+.vendre-input-group label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #f1f1f1;
+}
+
+.vendre-input-group input,
+.vendre-input-group textarea,
+.vendre-input-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff; 
+    color: #000; /* Ensure text color is visible */
+    box-sizing: border-box;
+}
+
+.vendre-input-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #d77710;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+    background-color: #e5c574;
+}

@@ -1,0 +1,40 @@
+/* footer.css */
+
+#footer {
+    background-color: #f8f9fa;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-top: 1px solid #dee2e6;
+    font-family: 'Outfit', sans-serif; /* Use the same font as the header */
+}
+
+.footer-section {
+    flex: 1;
+    margin: 10px;
+    min-width: 200px; /* Ensures a minimum width for each section */
+}
+
+.footer-section h3 {
+    color: #007bff; /* Color for section titles */
+    margin-bottom: 10px;
+}
+
+.footer-section p, .footer-section a {
+    color: #555; /* Text color */
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    color: #0056b3; /* Hover color for links */
+}
+
+.footer-bottom {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    border-top: 1px solid #dee2e6;
+    padding-top: 10px;
+    color: #777;
+}

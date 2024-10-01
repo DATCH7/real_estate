@@ -1,0 +1,10 @@
+/front-end/node_modules/
+/server/node_modules/
+node_modules/
+# Node modules
+/node_modules/
+
+
+# Other ignores
+*.log
+*.env
