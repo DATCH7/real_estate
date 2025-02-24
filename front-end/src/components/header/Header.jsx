@@ -14,7 +14,6 @@ function Header({ isLoggedIn }) {
                 <Link to="/acheter"><button id="acheter">Acheter</button></Link>
                 <Link to="/louer"><button id="louer">Louer</button></Link>
                 <Link to="/vendre"><button id="vendre">Vendre</button></Link>
-                <Link to="/APropos"><button id="A propos">A propos</button></Link>
                 <Link to="/Favoris"><button id="favoris">Mes favoris</button></Link>
             </div>
             {/* Conditional rendering for Login or Account */}

@@ -7,11 +7,11 @@ import Login from './components/login/login';
 import Vendre from './Vendre.jsx';
 import Acheter from './Acheter.jsx';
 import Louer from './Louer.jsx';
-import APropos from './APropos.jsx';
 import Favoris from './Favoris.jsx';
 import Account from './components/account/Account';
 import 'font-awesome/css/font-awesome.min.css';
 import SignUp from './components/signup/signup.jsx';
+import AdminPanel from './admin.jsx'; 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
@@ -39,11 +39,11 @@ function App() {
         <Route path="/" element={<Home />} />   
         <Route path="/account" element={<Account setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/admin" element={<AdminPanel />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/vendre" element={<Vendre />} />
         <Route path="/Acheter" element={<Acheter />} />
         <Route path="/louer" element={<Louer />} /> 
-        <Route path="/APropos" element={<APropos />} />
         <Route path="/Favoris" element={<Favoris />} /> 
       </Routes>
     </Router>

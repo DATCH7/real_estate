@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../footer/footer';
-import './Account.css';
+import './Account.css'; // Ensure existing CSS is used
 
 const Account = () => {
     const [user, setUser] = useState(null);
@@ -13,16 +13,15 @@ const Account = () => {
             try {
                 const response = await fetch('http://localhost:5000/api/getUserData', {
                     method: 'GET',
-                    credentials: 'include',
+                    credentials: 'include', // Ensure session cookies are sent
                 });
 
-                console.log('User Data Response:', response);
                 if (!response.ok) {
                     throw new Error('Error fetching user data: ' + response.status);
                 }
 
                 const data = await response.json();
-                setUser(data);
+                setUser(data); // Set user data in state
             } catch (error) {
                 console.error('Fetch User Data Error:', error);
                 if (error.message.includes('401')) {
@@ -35,14 +34,14 @@ const Account = () => {
             }
         };
 
-        fetchUserData();
+        fetchUserData(); // Call the function to fetch user data
     }, [navigate]);
 
     const handleLogout = async () => {
         try {
             const response = await fetch('http://localhost:5000/api/logout', {
                 method: 'POST',
-                credentials: 'include', // Send cookies with the request
+                credentials: 'include', // Ensure session cookies are sent
             });
 
             if (response.ok) {

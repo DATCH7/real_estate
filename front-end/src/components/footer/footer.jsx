@@ -14,7 +14,6 @@ function Footer() {
                     <li><a href="/acheter">Acheter</a></li>
                     <li><a href="/louer">Louer</a></li>
                     <li><a href="/vendre">Vendre</a></li>
-                    <li><a href="/a-propos">A propos</a></li>
                 </ul>
             </div>
             <div className="footer-section">
