@@ -2,9 +2,9 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const Favorite = require('./models/favorite');
-const User = require('./models/User'); 
+const User = require('./models/User');
 const Admin = require('./models/admin');
-const Property = require('./models/property'); 
+const Property = require('./models/property');
 
 
 
@@ -176,11 +176,11 @@ router.get('/getUserData', async (req, res) => {
 router.get('/users', async (req, res) => {
   console.log('GET /api/users called'); // Debug log
   try {
-      const users = await User.find(); // Fetch all users
-      res.json(users);
+    const users = await User.find(); // Fetch all users
+    res.json(users);
   } catch (error) {
-      console.error('Error fetching users:', error);
-      res.status(500).json({ message: 'Error fetching users' });
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'Error fetching users' });
   }
 });
 
@@ -203,13 +203,13 @@ router.put('/users/role/:userId', async (req, res) => {
   const { role } = req.body;
 
   try {
-      const user = await User.findByIdAndUpdate(userId, { role }, { new: true });
-      if (!user) {
-          return res.status(404).json({ message: 'User not found' });
-      }
-      res.json({ message: 'User role updated successfully', user });
+    const user = await User.findByIdAndUpdate(userId, { role }, { new: true });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json({ message: 'User role updated successfully', user });
   } catch (error) {
-      res.status(500).json({ message: 'Error updating user role', error });
+    res.status(500).json({ message: 'Error updating user role', error });
   }
 });
 
@@ -218,13 +218,13 @@ router.delete('/users/:userId', async (req, res) => {
   const { userId } = req.params;
 
   try {
-      const user = await User.findByIdAndDelete(userId);
-      if (!user) {
-          return res.status(404).json({ message: 'User not found' });
-      }
-      res.json({ message: 'User deleted successfully' });
+    const user = await User.findByIdAndDelete(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json({ message: 'User deleted successfully' });
   } catch (error) {
-      res.status(500).json({ message: 'Error deleting user', error });
+    res.status(500).json({ message: 'Error deleting user', error });
   }
 });
 
@@ -244,30 +244,81 @@ const upload = multer({ storage: storage });
 // Property publishing route (Authenticated)
 router.post('/properties', upload.array('photos'), async (req, res) => {
   try {
+    console.log('Received property publish request');
+
+    // Check authentication
+    if (!req.session.userId) {
+      console.log('Unauthenticated publish attempt rejected');
+      return res.status(401).json({ message: 'You must be logged in to publish a property' });
+    }
+
+    // Log received data for debugging
+    console.log('Received property data:', {
+      title: req.body.title,
+      description: req.body.description ? req.body.description.substring(0, 30) + '...' : 'missing',
+      price: req.body.price,
+      surface: req.body.surface,
+      rooms: req.body.rooms,
+      type: req.body.type,
+      address: req.body.address,
+      category: req.body.category,
+      photosCount: req.files ? req.files.length : 0
+    });
+
+    // Check required fields
+    const requiredFields = ['title', 'description', 'price', 'surface', 'rooms', 'type', 'address', 'category'];
+    const missingFields = requiredFields.filter(field => !req.body[field]);
+
+    if (missingFields.length > 0) {
+      console.log('Missing required fields:', missingFields);
+      return res.status(400).json({
+        message: `Missing required fields: ${missingFields.join(', ')}`
+      });
+    }
+
+    // Handle the photos
+    let photoFilenames = [];
+    if (req.files && req.files.length > 0) {
+      photoFilenames = req.files.map(file => file.filename);
+      console.log(`Processed ${photoFilenames.length} uploaded photos:`, photoFilenames);
+    } else {
+      console.log('No photos included in the upload');
+    }
+
+    // Extract property data from request body
     const { title, description, price, surface, rooms, type, address, category, diagnostics, equipment } = req.body;
 
-
+    // Create new property document
     const property = new Property({
       title,
       description,
-      price,
-      surface,
-      rooms,
+      price: parseFloat(price) || 0,
+      surface: parseFloat(surface) || 0,
+      rooms: parseInt(rooms) || 0,
       type,
       address,
       category,
-      photos: req.files.map(file => file.filename),
+      photos: photoFilenames,
       diagnostics,
-      equipment,
+      // Convert equipment to array if it's a string
+      equipment: equipment ? (Array.isArray(equipment) ? equipment : [equipment]) : [],
       agentId: req.session.userId
     });
 
+    // Save to database
+    const savedProperty = await property.save();
+    console.log('Property saved successfully with ID:', savedProperty._id);
 
-    await property.save();
-    res.status(201).json({ message: 'Property published successfully!', property });
+    res.status(201).json({
+      message: 'Property published successfully!',
+      property: savedProperty
+    });
   } catch (error) {
     console.error('Error publishing property:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({
+      message: 'Internal server error',
+      error: error.message
+    });
   }
 });
 
@@ -358,6 +409,45 @@ router.get('/favorites', async (req, res) => {
   } catch (error) {
     console.error('Error fetching favorites:', error);
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Fetch all properties (optional)
+router.get('/properties', async (req, res) => {
+  try {
+    const properties = await Property.find(); // Fetch all properties
+    res.json(properties);
+  } catch (err) {
+    console.error('Error fetching properties:', err);
+    res.status(500).json({ message: 'Error fetching properties', error: err });
+  }
+});
+
+// Development route to create admin user
+router.post('/dev/create-admin', async (req, res) => {
+  try {
+    // Check if admin already exists
+    const existingAdmin = await User.findOne({ email: 'adamdatch100@gmail.com' });
+    if (existingAdmin) {
+      return res.status(400).json({ success: false, message: 'Admin user already exists.' });
+    }
+
+    // Create admin user
+    const adminUser = new User({
+      firstName: 'Admin',
+      lastName: 'User',
+      email: 'adamdatch100@gmail.com',
+      password: 'admin123', // Simple password for development
+      phone: '1234567890',
+      role: 'admin',
+      createdAt: new Date()
+    });
+
+    await adminUser.save();
+    res.status(201).json({ success: true, message: 'Admin user created successfully!' });
+  } catch (error) {
+    console.error('Error creating admin user:', error);
+    res.status(500).json({ success: false, message: 'Error creating admin user.' });
   }
 });
 
